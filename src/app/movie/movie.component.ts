@@ -1,26 +1,21 @@
 import { Component, OnInit, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-movie",
   standalone: true,
-  imports: [CommonModule, NgxSpinnerModule],
+  imports: [CommonModule],
   template: `
-    <p>Movie works</p>
     <h2>Movies</h2>
-
-    <ng-container>
-      <div style="margin:8px 0px">
-        <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
-      </div>
-      <div style="margin:8px 0px">Something went wrong</div>
-      <ul>
-        <li>
+    <ng-container *ngIf="true">
+      <div style="margin:8px 0px" *ngIf="true">loading....</div>
+      <div style="margin:8px 0px" *ngIf="true">Something went wrong</div>
+      <ul *ngIf="true">
+        <li *ngFor="let movie of [1, 2, 3, 4]">
           👉 Movie-title (year) ||
-          <a style="cursor:pointer">✏️</a>
+          <a style="cursor:pointer" (click)="({})">✏️</a>
           ||
-          <a style="cursor: pointer;">❌</a>
+          <a style="cursor: pointer;" (click)="({})">❌</a>
         </li>
       </ul>
 
@@ -40,7 +35,7 @@ import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
           <div class="form-field">
             <button type="submit" class="btn">💾 Add</button>
 
-            <button type="button" class="btn">❌ Cancel</button>
+            <button type="button" class="btn" (click)="({})">❌ Cancel</button>
           </div>
         </div>
       </form>
@@ -64,30 +59,13 @@ import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
         font-size: 14px;
         padding: 3px 5px;
       }
-
-      .btn {
-        border: 1px solid;
-        font-size: 16px;
-        cursor: pointer;
-        padding: 3px 5px;
-      }
     `,
   ],
 })
-export class MovieComponent implements OnInit {
+export class MovieComponent {
   // movieForm: FormGroup = this.fb.group({
   //   id: [null],
   //   title: ["", Validators.required],
   //   year: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
   // });
-  spinner = inject(NgxSpinnerService);
-
-  ngOnInit(): void {
-    this.spinner.show();
-
-    setTimeout(() => {
-      /** spinner ends after 5 seconds */
-      this.spinner.hide();
-    }, 5000);
-  }
 }
