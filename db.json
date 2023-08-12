@@ -1,0 +1,20 @@
+{
+  "movies": [
+    {
+      "id": "unique1",
+      "title": "Chalti ka naam gaadi",
+      "genre": "comedy",
+      "year": 1958
+    },
+    {
+      "id": "unique2",
+      "title": "CID",
+      "genre": "thriller"
+    },
+    {
+      "id": "2beb4981-bdd3-49ba-b0f3-0e8b0e333be8",
+      "title": "Woh kaun thi",
+      "year": 1962
+    }
+  ]
+}
