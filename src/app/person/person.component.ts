@@ -1,18 +1,24 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { PersonStore } from "./person.store";
+import { generateGuid } from "../utils/utils";
+import { Person } from "./person.model";
 
 @Component({
   selector: "app-person",
   standalone: true,
   imports: [CommonModule],
+  providers: [PersonStore],
   template: `
     <h2>Peoples 🕴️🙆</h2>
-    <ng-container *ngIf="true">
+    <ng-container *ngIf="people$ | async as people">
       <ul class="people-list">
-        <li *ngFor="let person of [1, 2, 3, 4]">👉name | email</li>
+        <li *ngFor="let person of people">
+          👉{{ person.name }} | {{ person.email }}
+        </li>
       </ul>
 
-      <button class="btn">➕ Add more</button>
+      <button class="btn" (click)="addPerson()">➕ Add more</button>
     </ng-container>
   `,
   styles: [
@@ -27,4 +33,17 @@ import { CommonModule } from "@angular/common";
     `,
   ],
 })
-export class PersonComponent {}
+export class PersonComponent {
+  store = inject(PersonStore);
+  people$ = this.store.people$;
+
+  addPerson() {
+    const person: Person = {
+      id: generateGuid(),
+      name: "ravindra",
+      email: "ravindra@xyz.com",
+    };
+    // calling the addPerson method from store
+    this.store.addPerson(person);
+  }
+}
